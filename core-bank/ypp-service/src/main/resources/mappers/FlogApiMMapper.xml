@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vteam.cars.entity.mapper.FlogApiMMapper">
+
+    <select id="listApiLogByCondition" resultType="com.vteam.cars.entity.vo.FlogApiMVo">
+        SELECT REFCODE, API_ID, API_NAME, API_TYPE,
+        REQUEST_TIME, RESPONSE_TIME, RESULT_CODE
+        FROM FLOG_API_M
+        <where>
+            <if test="apiName != null and apiName !=''">
+                AND API_NAME LIKE CONCAT('%',#{apiName},'%')
+            </if>
+            <if test="apiType != null and apiType != ''">
+                AND API_TYPE = #{apiType}
+            </if>
+            <if test=" responseTimeStart != null">
+                AND RESPONSE_TIME &gt;= #{responseTimeStart}
+            </if>
+            <if test=" responseTimeEnd != null">
+                AND RESPONSE_TIME &lt;= #{responseTimeEnd}
+            </if>
+            <if test=" resultCode != null and resultCode != ''">
+                AND RESULT_CODE = #{resultCode}
+            </if>
+            <if test="requestBody  != null and requestBody != ''">
+                AND request_Body = #{requestBody}
+            </if>
+        </where>
+        ORDER BY REFCODE DESC
+    </select>
+
+</mapper>

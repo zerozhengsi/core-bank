@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>控制台</title>
+</head>
+<script type="text/javascript">
+/**
+ * 请求服务
+ */
+function sendUrl(uri) {
+    var url = "";
+    var origin = window.location.origin;
+    // 兼容IE10版本
+    if (!origin) {
+        origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+    }
+    var pathname = window.location.pathname;
+    if (pathname.indexOf("/api-sme") != -1) {
+        url = origin + "/api-sme/api-sme" + uri;
+    } else {
+        url = origin + uri;
+    }
+    window.location.href = url;
+}
+
+function sendUrlForPreviewFile(uri) {
+    var url = "";
+    var origin = window.location.origin;
+    // 兼容IE10版本
+    if (!origin) {
+        origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+    }
+    var pathname = window.location.pathname;
+    if (pathname.indexOf("/api-sme") != -1) {
+        url = origin + "/api-sme/api-sme" + uri;
+    } else {
+        url = origin + uri;
+    }
+    var resourceUuid= document.getElementById("resourceUuid").value;
+    window.location.href = url + "/" + resourceUuid+ "?t=" + new Date().getTime();
+}
+
+function sendUrlForDownloadImpTemple(uri) {
+    var url = "";
+    var origin = window.location.origin;
+    // 兼容IE10版本
+    if (!origin) {
+        origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+    }
+    var pathname = window.location.pathname;
+    if (pathname.indexOf("/api-sme") != -1) {
+        url = origin + "/api-sme/api-sme" + uri;
+    } else {
+        url = origin + uri;
+    }
+    var access_token= document.getElementById("template_token").value;
+    window.location.href = url + "?access_token=" + access_token + "&t=" + new Date().getTime();
+}
+
+function sendUrlForDownloadFile(uri) {
+    var url = "";
+    var origin = window.location.origin;
+    // 兼容IE10版本
+    if (!origin) {
+        origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+    }
+    var pathname = window.location.pathname;
+    if (pathname.indexOf("/api-sme") != -1) {
+        url = origin + "/api-sme/api-sme" + uri;
+    } else {
+        url = origin + uri;
+    }
+    var fileUuid= document.getElementById("fileUuid").value;
+    window.location.href = url + "/" + fileUuid + "/" + fileUuid+ "?t=" + new Date().getTime();
+}
+
+function sendUrlForImp(uri) {
+    var url = "";
+    var origin = window.location.origin;
+    // 兼容IE10版本
+    if (!origin) {
+        origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+    }
+    var pathname = window.location.pathname;
+    if (pathname.indexOf("/api-sme") != -1) {
+        url = origin + "/api-sme/api-sme" + uri;
+    } else {
+        url = origin + uri;
+    }
+    var access_token= document.getElementById("access_token").value;
+    document.getElementById("impformid").action = url + "?access_token=" + access_token + "&t=" + new Date().getTime();
+    document.getElementById("impformid").submit();
+}
+
+</script>
+<body>
+
+<div>
+
+    <fieldset>
+        <legend>公共</legend>
+        <ul>
+            <li>
+                <a href="javascript:sendUrl('/console/rebuildLuceneIndex')">重构Lucene索引</a><span style="color: red; margin-left: 10px;">注意：重构需要等待较长时间！如需操作，请耐心等待。</span>
+            </li>
+            <li><a href="javascript:sendUrl('/console/triggerJob/SynchronizeSequenceJob')">同步Sequence索引</a></li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>文件上传</legend>
+        <ul>
+            <li>
+                <form id="formid" method="post" action="/file/doUploadFile" enctype="multipart/form-data">
+                    <input type="file" name="upfile" id="upfile"><br>
+                    <input type="submit" value="上传">
+                </form>
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>文件预览</legend>
+        <ul>
+            <li>
+                <span style="color: red; margin-left: 10px;">resourceUuid</span>
+                <input name="resourceUuid" id="resourceUuid" value="1b4e2bae-235a-4356-ba29-91911ba0fe72">
+                <a href="javascript:sendUrlForPreviewFile('/file/getPreviewFileInputStreamByApxId')">文件预览</a>
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>文件下载</legend>
+        <ul>
+            <li>
+                <span style="color: red; margin-left: 10px;">fileUuid</span>
+                <input name="fileUuid" id="fileUuid" value="57be7b55-f934-406a-a87c-be64aa9cf073">
+                <a href="javascript:sendUrlForDownloadFile('/file/getFileByUuid')">文件下载</a>
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>模板下载</legend>
+        <ul>
+            <li>
+                <span style="color: red; margin-left: 10px;">access_token</span>
+                <input name="template_token" id="template_token" value="5253b4a2-ab53-4549-bdce-2aafd29144d8">
+                <a href="javascript:sendUrlForDownloadImpTemple('/operation/extInfo/doDownloadSplitExtInfoImpTemple')">模板下载</a>
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>批量导入</legend>
+        <ul>
+            <li>
+                <form id="impformid" method="post" action="#" enctype="multipart/form-data">
+                    <span style="color: red; margin-left: 10px;">access_token</span>
+                    <input type="hidden" name="spRefcode" id="spRefcode" value="1">
+                    <input type="hidden" name="channelRefcode" id="channelRefcode" value="2">
+                    <input name="access_token" id="access_token" value="f4e5fe1e-5248-46d3-b7bf-b6449af64eb4">
+                    </br>
+                    <input type="file" name="file" id="file">
+                    <input type="button" value="批量导入" onclick = "javascript:sendUrlForImp('/operation/extInfo/doResolveExtinfos');">
+                    <!--
+                    <input type="button" value="批量导入门店" onclick = "javascript:sendUrlForImp('/operation/store/doResolveStoreInfo');">
+                    <input type="button" value="批量导入订单" onclick = "javascript:sendUrlForImp('/operation/order/doResolveOrder');">
+                    -->
+                </form>
+            </li>
+        </ul>
+    </fieldset>
+
+
+</div>
+
+
+
+
+</body>
+</html>

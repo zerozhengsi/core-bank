@@ -1,0 +1,23 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.vteam.vtarm.utils.SpringContextUtils,\
+com.vteam.vtarm.cache.CacheContainerAutoConfigure,\
+com.vteam.vtarm.cluster.ClusterLockAutoConfigure,\
+com.vteam.vtarm.codec.CodecAutoConfigure,\
+com.vteam.vtarm.control.ApiSwitchAutoConfigure,\
+com.vteam.vtarm.data.DataProviderAutoConfigure,\
+com.vteam.vtarm.filter.FilterAutoConfigure,\
+com.vteam.vtarm.flow.FlowAutoConfigure,\
+com.vteam.vtarm.log.LogAutoConfigure,\
+com.vteam.vtarm.lucene.LuceneAutoConfigure,\
+com.vteam.vtarm.message.MessageAutoConfigure,\
+com.vteam.vtarm.ocr.OcrAutoConfigure,\
+com.vteam.vtarm.runner.RunnerAutoConfigure,\
+com.vteam.vtarm.security.SecurityAutoConfigure,\
+com.vteam.vtarm.session.RedisSessionConfig,\
+com.vteam.vtarm.sql.SqlAutoConfigure,\
+com.vteam.vtarm.task.TaskAutoConfigure,\
+com.vteam.vtarm.thread.ThreadPoolConfiguration,\
+com.vteam.vtarm.transaction.DataSourceTransactionManagerConfigure,\
+com.vteam.vtarm.VtarmAutoConfigure,\
+com.vteam.vtarm.VtarmActuatorProperties

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vteam.cars.entity.mapper.FlogOptMMapper">
+    <!-- 获取日志列表 -->
+    <select id="listOperationLogByCondition" parameterType="com.vteam.cars.entity.vo.FlogOptMVo"
+            resultType="com.vteam.cars.entity.vo.FlogOptMVo">
+        SELECT OPT.OPERATOR USERID, OPT.USER_NAME, OPT.MOBILEPHONE, OPT.ORGNAME,
+        OPT.EDTID, OPT.EDT_DESC, OPT.OPERATOR, OPT.OPERATE_DATE,
+        OPT.OPERATOR_ADDRESS, OPT.OPERATOR_IP
+        FROM FLOG_OPT_M OPT
+        <!-- 已增加用于查询的冗余字段，不再关联表查询
+        INNER JOIN SIPA_BUR_M BUR ON OPT.OPERATOR = BUR.USERID AND BUR.DEL_FLAG = '0'
+        INNER JOIN FBPA_ORG_M ORG ON OPT.OPERATOR_ORG_REFCODE = ORG.REFCODE AND ORG.DEL_FLAG = '0'
+        -->
+        <where>
+            <!-- 通过企业名称检索 -->
+            <if test="orgRefcodes != null and orgRefcodes.length > 0">
+                AND OPT.OPERATOR_ORG_REFCODE IN
+                <foreach collection="orgRefcodes" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="null != userName and '' != userName ">
+                AND OPT.USER_NAME LIKE CONCAT('%',#{userName},'%')
+            </if>
+            <if test="null != operator and '' != operator ">
+                AND OPT.OPERATOR LIKE CONCAT('%',#{operator},'%')
+            </if>
+            <if test="null != mobilephone and '' != mobilephone">
+                AND OPT.MOBILEPHONE LIKE CONCAT('%',#{mobilephone},'%')
+            </if>
+            <if test="null != operatorOrgRefcode and '' != operatorOrgRefcode">
+                AND OPT.OPERATOR_ORG_REFCODE = #{operatorOrgRefcode}
+            </if>
+            <if test="null != operateDateStart  ">
+                <![CDATA[ AND OPT.OPERATE_DATE >= #{operateDateStart} ]]>
+            </if>
+            <if test="null != operateDateEnd ">
+                <![CDATA[ AND OPT.OPERATE_DATE <= #{operateDateEnd} ]]>
+            </if>
+        </where>
+        ORDER BY OPT.REFCODE DESC
+    </select>
+</mapper>

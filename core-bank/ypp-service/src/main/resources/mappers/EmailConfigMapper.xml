@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vteam.cars.entity.mapper.EmailConfigMapper">
+    <!-- 查询邮件配置列表-->
+    <select id="listEmailConfigVoByCondition" resultType="com.vteam.cars.entity.vo.EmailConfigVo">
+        select email.*,PROD.PRODUCT_NAME
+        FROM email_config email
+        INNER JOIN FINANCIAL_PRODUCT PROD ON email.PROREFCODE = PROD.REFCODE
+        WHERE email.DEL_FLAG ='0'
+        <if test="null != prorefcode and '' != prorefcode">
+            AND email.prorefcode = #{prorefcode}
+        </if>
+        <if test="null != emailType and '' != emailType">
+            AND email.email_type = #{emailType}
+        </if>
+    </select>
+</mapper>

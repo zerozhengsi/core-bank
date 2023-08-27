@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vteam.cars.entity.mapper.FbtxUrMsgMMapper">
+
+    <!-- 按条件查询未读即时消息列表 -->
+    <select id="listUnreadMessageByCondition" resultType="com.vteam.cars.entity.model.FbtxUrMsgM">
+        SELECT * FROM FBTX_UR_MSG_M MSG
+#         INNER JOIN FBPA_ORG_M ORG ON MSG.RECEIVE_ORG_REFCODE = ORG.REFCODE AND ORG.DEL_FLAG = '0' AND ORG.DATA_STATUS = '99'
+#         INNER JOIN SIPA_BUR_M BUR ON MSG.RECEIVE_USERID = BUR.USERID AND ORG.DEL_FLAG = '0' AND BUR.DATA_STATUS = '99'
+#         INNER JOIN SIPA_BTO_M BTO ON MSG.RECEIVE_USERID = BTO.USERID AND MSG.RECEIVE_ORG_REFCODE = BTO.ORG_REFCODE
+        WHERE
+            MSG.DEL_FLAG = '0'
+          AND MSG.DATA_STATUS = '99'
+          AND MSG.BRAND_REFCODE = #{brandRefcode}
+          AND MSG.RECEIVE_ORG_REFCODE = #{receiveOrgRefcode}
+          AND MSG.RECEIVE_USERID = #{receiveUserid}
+        ORDER BY MSG.LAST_MOD_DATE DESC
+    </select>
+</mapper>

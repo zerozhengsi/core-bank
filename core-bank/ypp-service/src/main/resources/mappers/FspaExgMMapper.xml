@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vteam.cars.entity.mapper.FspaExgMMapper">
+
+    <select id="getParmValueByCondition" resultType="java.lang.String">
+        SELECT
+        COLM.COL_DESC PARM_VALUE
+        FROM FSPA_EXG_M EXGM,FSPA_COL_M COLM
+        WHERE EXGM.PARM_VALUE = COLM.COL_ID
+        AND COLM.LANGUAGE_ID = #{languageId}
+        AND EXGM.PARM_TYPE = #{parmType}
+        AND EXGM.PARM_NAME = #{parmName}
+    </select>
+
+    <select id="listExgInfoByCondition" resultType="com.vteam.cars.entity.vo.FspaExgMVo">
+        SELECT
+        EXGM.PARM_TYPE,EXGM.PARM_NAME,EXGM.PARENT_ID,COLM.COL_DESC parmDesc
+        FROM FSPA_EXG_M EXGM,FSPA_COL_M COLM
+        WHERE EXGM.PARM_VALUE = COLM.COL_ID
+        <if test="languageId != null and languageId != ''">
+            AND COLM.LANGUAGE_ID = #{languageId}
+        </if>
+        <if test="colDesc != null and colDesc != ''">
+            AND COLM.COL_DESC = #{colDesc}
+        </if>
+        <if test="parmType != null and parmType != ''">
+            AND EXGM.PARM_TYPE = #{parmType}
+        </if>
+        <if test="parmName != null and parmName != ''">
+            AND EXGM.PARM_NAME = #{parmName}
+        </if>
+    </select>
+
+</mapper>
