@@ -14,17 +14,15 @@ import jakarta.annotation.Resource;
  * @date 2019/6/6 17:44
  */
 @Component
-public class AreaInfoRunner implements Runner {
+public class AreaInfoRunner {
 
     @Resource(type = DataProvider.class)
     private DataProvider dataProvider;
 
-    @Override
     public int order() {
         return 2;
     }
 
-    @Override
     public void run() throws Exception {
         dataProvider.rebuild(AreaInfoProvider.class);
     }

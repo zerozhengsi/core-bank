@@ -26,7 +26,7 @@ public class ExgJsonTest {
             System.out.println(jsonObject.toJSONString());
 
             // 传入要转换的属性
-            String type="lineUnit";
+            String type="language";
             JSONArray jsonArray = jsonObject.getJSONArray(type);
             if (jsonArray != null) {
                 System.out.println("\nArray Property:");

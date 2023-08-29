@@ -16,17 +16,15 @@ import java.io.File;
  */
 @Slf4j
 @Component
-public class InitLuceneDirectoryRunner implements Runner {
+public class InitLuceneDirectoryRunner {
 
     @Resource(type = SmeConfiguration.class)
     private SmeConfiguration smeConfiguration;
 
-    @Override
     public int order() {
         return 1;
     }
 
-    @Override
     public void run() throws Exception {
         // 创建Lucene索引文件夹
         File luceneDirectory = new File(smeConfiguration.getLucenePath());

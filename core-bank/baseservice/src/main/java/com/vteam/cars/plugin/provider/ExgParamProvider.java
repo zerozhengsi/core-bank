@@ -30,10 +30,17 @@ public class ExgParamProvider implements Provider {
     @Resource
     private MapContainer mapContainer;
 
+    /**
+     * 根据languate,parm_type,parm_name获取parm_value
+     * 根据languate,parm_type,parm_value获取parm_name
+     * @param key 传入3个参数
+     * @return
+     */
     @Override
     public String get(String... key) {
         if (ArrayUtils.isNotEmpty(key)) {
-            Object value = mapContainer.getHashValue(key[0], key[1]);
+            String str = EXG_PARM + GlobalConstants.Symbol.SEMICOLON + key[0] + GlobalConstants.Symbol.SEMICOLON + key[1];
+            Object value = mapContainer.getHashValue(str, key[2]);
             if (null != value) {
                 return value.toString();
             }
@@ -55,6 +62,11 @@ public class ExgParamProvider implements Provider {
         condition.setLanguageId(GlobalConstants.Language.zh_TW);
         propertyList = fspaExgMService.listExgInfoByCondition(condition);
         cacheExgParams(propertyList, GlobalConstants.Language.zh_TW);
+
+        condition = new FspaExgMVo();
+        condition.setLanguageId(GlobalConstants.Language.en_US);
+        propertyList = fspaExgMService.listExgInfoByCondition(condition);
+        cacheExgParams(propertyList, GlobalConstants.Language.en_US);
     }
 
     @Override

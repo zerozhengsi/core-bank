@@ -36,7 +36,7 @@ spring:
   # 数据源配置
   datasource:
     name: nfms
-    url: jdbc:mysql://192.168.10.145:3306/nfms?useSSL=false&characterEncoding=utf8
+    url: jdbc:mysql://192.168.10.145:3306/base?useSSL=false&characterEncoding=utf8
     username: root
     password: ipu123
     type: com.zaxxer.hikari.HikariDataSource

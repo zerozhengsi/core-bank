@@ -14,17 +14,15 @@ import jakarta.annotation.Resource;
  * @date 2019/6/6 17:10
  */
 @Component
-public class OtpInfoRunner implements Runner {
+public class OtpInfoRunner {
 
     @Resource
     private DataProvider dataProvider;
 
-    @Override
     public void run() throws Exception {
         dataProvider.rebuild(OtpInfoProvider.class);
     }
 
-    @Override
     public int order() {
         return 2;
     }

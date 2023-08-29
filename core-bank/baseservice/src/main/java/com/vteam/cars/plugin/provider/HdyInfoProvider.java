@@ -33,7 +33,7 @@ public class HdyInfoProvider implements Provider {
     @Override
     public String get(String... key) {
         if (ArrayUtils.isNotEmpty(key)) {
-            Object value = mapContainer.getHashValue(key[0], key[1]);
+            Object value = mapContainer.getHashValue(HDY, key[0]);
             if (null != value) {
                 return value.toString();
             }

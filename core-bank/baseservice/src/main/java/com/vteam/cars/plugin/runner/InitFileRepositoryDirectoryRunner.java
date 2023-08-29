@@ -17,17 +17,15 @@ import java.io.File;
  */
 @Slf4j
 @Component
-public class InitFileRepositoryDirectoryRunner implements Runner {
+public class InitFileRepositoryDirectoryRunner {
 
     @Resource(type = SmeConfiguration.class)
     private SmeConfiguration smeConfiguration;
 
-    @Override
     public int order() {
         return 1;
     }
 
-    @Override
     public void run() throws Exception {
         // 如果启用的是本地文件仓库则初始化文件仓库文件夹
         if (SmeConfigConstants.FILE_ACTIVE_LOCAL.equals(smeConfiguration.getFileActive())) {

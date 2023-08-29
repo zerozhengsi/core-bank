@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.vteam.cars.config.SmeConfiguration;
 import com.vteam.cars.constant.GlobalConstants;
+import com.vteam.cars.service.fipa.FipaNumMService;
 import com.vteam.cars.service.fspa.FspaSeqMService;
 import com.vteam.cars.sql.QueryExecutor;
 import com.vteam.cars.util.SmeAssert;
@@ -36,6 +37,8 @@ public class CommonService {
 
     @Resource(type = FspaSeqMService.class)
     private FspaSeqMService fspaSeqMService;
+    @Resource(type = FipaNumMService.class)
+    FipaNumMService fipaNumMService;
 
     @Resource(type = SmeConfiguration.class)
     private SmeConfiguration smeConfiguration;
@@ -62,6 +65,16 @@ public class CommonService {
      * 验证码业务信息标记，用于生成临时授权码
      */
     public static final String CHECK_CODE_SCOPE = "check_code-scope";
+
+    /**
+     * 业务功能编号生成
+     * @param numType   自定义
+     * @param numValue  自定义
+     * @return
+     */
+    public Integer getMaxNum(Integer numType, String numValue){
+        return fipaNumMService.getMaxNum(numType,numValue);
+    }
 
     /**
      * 获取最大批次号(交易) 根据Sequence

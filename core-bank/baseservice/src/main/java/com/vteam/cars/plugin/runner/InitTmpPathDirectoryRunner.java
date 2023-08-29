@@ -16,17 +16,15 @@ import java.io.File;
  */
 @Slf4j
 @Component
-public class InitTmpPathDirectoryRunner implements Runner {
+public class InitTmpPathDirectoryRunner {
 
     @Resource(type = SmeConfiguration.class)
     private SmeConfiguration smeConfiguration;
 
-    @Override
     public int order() {
         return 0;
     }
 
-    @Override
     public void run() throws Exception {
         // 创建临时文件夹
         File tmpDirectory = new File(smeConfiguration.getTmpPath());

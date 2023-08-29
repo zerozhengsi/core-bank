@@ -51,13 +51,14 @@ public class SynchronizeSequenceRunner implements Runner {
         // 初始化系统编号信息表
         this.initFipaNum();
         // 初始化数据库序列信息表
-        final String dbType = smeConfiguration.getDbType();
-        // mysql下使用redis序列，Oracle使用自己的序列
-        if (GlobalConstants.DbType.SYSTEM_DB_MYSQL.equals(dbType)
-                || GlobalConstants.DbType.SYSTEM_DB_INSPUR_KDB.equals(dbType)
-                || GlobalConstants.DbType.SYSTEM_DB_DB2.equals(dbType)) {
-            this.initFspaSeq();
-        }
+        this.initFspaSeq();
+//        final String dbType = smeConfiguration.getDbType();
+//        // mysql下使用redis序列，Oracle使用自己的序列
+//        if (GlobalConstants.DbType.SYSTEM_DB_MYSQL.equals(dbType)
+//                || GlobalConstants.DbType.SYSTEM_DB_INSPUR_KDB.equals(dbType)
+//                || GlobalConstants.DbType.SYSTEM_DB_DB2.equals(dbType)) {
+//            this.initFspaSeq();
+//        }
         BeforePersistenceHandler.resetFill();
     }
 
@@ -65,8 +66,6 @@ public class SynchronizeSequenceRunner implements Runner {
      * 初始化系统编号信息表
      */
     private void initFipaNum() {
-        LambdaQueryWrapper<FipaNumM> queryWrapper = new QueryWrapper<FipaNumM>().lambda();
-        queryWrapper.select(FipaNumM::getRefcode, FipaNumM::getNumType, FipaNumM::getNumValue, FipaNumM::getCurrSeqnum);
         List<FipaNumM> fipaNumMList = fipaNumMService.list();
         if (CollectionUtils.isNotEmpty(fipaNumMList)) {
             String key;
