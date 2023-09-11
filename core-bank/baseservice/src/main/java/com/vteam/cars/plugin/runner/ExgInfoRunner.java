@@ -13,7 +13,6 @@ import jakarta.annotation.Resource;
  * @author jiangming.huang
  * @date 2019/6/10 14:06
  */
-@Component
 public class ExgInfoRunner implements Runner {
 
     @Resource

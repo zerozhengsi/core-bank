@@ -36,9 +36,9 @@ spring:
   # 数据源配置
   datasource:
     name: nfms
-    url: jdbc:mysql://192.168.10.145:3306/base?useSSL=false&characterEncoding=utf8
+    url: jdbc:mysql://127.0.0.1:3306/mysqltest?useSSL=false&characterEncoding=utf8
     username: root
-    password: ipu123
+    password: mysqltest
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
@@ -61,7 +61,7 @@ spring:
     # ActiveMQ开关
     switch: true
     # ActiveMQ服务器地址
-    broker-url: tcp://192.168.121.222:61616
+    broker-url: tcp://127.0.0.1:61616
     # ActiveMQ服务器用户名，密码
     user: admin
     password: admin
@@ -114,8 +114,7 @@ spring:
   # redis 配置
   data:
     redis:
-      host: 192.168.122.28
-      password: Redis@123456
+      host: 127.0.0.1
       database: 10
   # 项目配置
   vtarm:
@@ -124,8 +123,8 @@ spring:
       ignore-url: /smews
     security:
       level: high
-      ignore-urls: /favicon.ico,/public/**,/anon/**,/common/**,/operation/**,/homeCommon/**,/file/**,/library/**,/sys/login,/sys/logout,/authz/doResetPassword,/console/**,/customInfo/**,/projectCommon/**,/statistics/**,/home/**,/weixin/**
-      allow-replay-urls: [ "/console/**","/operation/**","/templates/**","/file/**","/sys/login","/sys/logout", "/actuator**", "/favicon.ico" ]
+      ignore-urls: /api-docs/**,/swagger-ui.html,/swagger-ui/**,/favicon.ico,/public/**,/anon/**,/common/**,/operation/**,/homeCommon/**,/file/**,/library/**,/sys/login,/sys/logout,/authz/doResetPassword,/console/**,/customInfo/**,/projectCommon/**,/statistics/**,/home/**,/weixin/**
+      allow-replay-urls: [ "/api-docs/**","/swagger-ui.html","/swagger-ui/**,","/console/**","/operation/**","/templates/**","/file/**","/sys/login","/sys/logout", "/actuator**", "/favicon.ico" ]
       # 登录会话(access_token)有效时长(分钟) 一天=60*24*1=1440
       timeToLive: 1440
     # 编解码配置
@@ -191,6 +190,12 @@ pagehelper:
 
 plugin:
   htmlConvertToPDFPluginPath: E:/wkhtmltopdf/bin/wkhtmltopdf
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
 
 # 应用配置
 application:
