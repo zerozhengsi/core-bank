@@ -18,6 +18,7 @@ import com.vteam.vtarm.api.RespEntity;
 import com.vteam.vtarm.cache.StringValueContainer;
 import com.vteam.vtarm.security.LoginRequest;
 import com.vteam.vtarm.security.LogoutRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,7 @@ import java.util.Map;
  * @date 2019/4/19 9:25
  */
 @RestController
+@Slf4j
 @RequestMapping("/sys")
 public class SysController {
 
@@ -76,6 +78,10 @@ public class SysController {
         // 运营端用户名登录
         SipaBurMVo sipaBurMVo = sipaBurMService.getUserInfoByUserid(loginId, FieldConstant.PublicFieldValue.SYSTEM_TYPE_MANAGE);
         SmeAssert.notNull(sipaBurMVo, "用户名或密码错误。");
+
+        if(loginUser.getLoginId().equals("admin")){
+            log.info(loginUser.getLoginId());
+        }
 
         // 尝试次数
         String tryCountKey = String.format(LOGIN_TRY_COUNT, loginId, FieldConstant.PublicFieldValue.SYSTEM_TYPE_MANAGE);

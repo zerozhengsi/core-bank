@@ -12,6 +12,7 @@ import com.vteam.cars.util.StringUtils;
 import com.vteam.vtarm.api.ReqEntity;
 import com.vteam.vtarm.cache.StringValueContainer;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.support.SimpleInstantiationStrategy;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
